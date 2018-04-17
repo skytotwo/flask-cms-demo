@@ -1,0 +1,47 @@
+{% extends "user.html" %}
+
+{% block content %}
+<form method="post">
+    {% for msg in get_flashed_messages(category_filter=['err']) %}
+    <p style="color: red">{{ msg }}</p>
+    {% endfor %}
+    <div class="form-group">
+        <label>账号</label>
+        {{ form.account }}
+        {% for v in form.account.errors %}
+        <p style="color: red">{{ v }}</p>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label>密码</label>
+        {{ form.pwd }}
+        {% for v in form.pwd.errors %}
+        <p style="color: red">{{ v }}</p>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label>确认密码</label>
+        {{ form.re_pwd }}
+        {% for v in form.re_pwd.errors %}
+        <p style="color: red">{{ v }}</p>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label>验证码</label>
+        {{ form.captcha }}
+        {% for v in form.captcha.errors %}
+        <p style="color: red">{{ v }}</p>
+        {% endfor %}
+        <!--<img data-src="holder.js/180x50" style="margin-top: 6px">-->
+        <img alt="点击切换" title="点击切换" src="/captcha/" onclick="this.src='/captcha/?'+Math.random()" style="width: 180px; height: 50px; margin-top: 6px;">
+    </div>
+    <a href="/login/">已有账号!前往登录</a>
+    <br>
+    {{ form.submit }}
+    {{ form.csrf_token }}
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/holder.js"></script>
+{% endblock %}
